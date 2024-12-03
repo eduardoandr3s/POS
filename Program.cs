@@ -26,7 +26,7 @@
         public virtual void MostrarDetalles()
         {
 
-            Console.WriteLine($"Producto: {Nombre}, Valor: {Valor:C}, Categoría: {Categoria}, Código: {Codigo}, Impuesto: {Impuesto:C}");
+            Console.WriteLine($"\nProducto: {Nombre}, Valor: {Valor:C}, Categoría: {Categoria}, Código: {Codigo}, Impuesto: {Impuesto:C}");
         }
 
     }
@@ -57,7 +57,7 @@
         {
 
             base.MostrarDetalles();
-            Console.WriteLine($"Autor: {Autor}, Páginas: {NumeroPaginas}, Precio final: {CalcularPrecioFinal:C}");
+            Console.WriteLine($"Autor: {Autor}, Páginas: {NumeroPaginas}, Precio final: {CalcularPrecioFinal():C}");
 
 
         }
@@ -99,7 +99,7 @@
     }
 
 
-    class Factura : Producto
+    class Factura()
     {
 
 
@@ -112,18 +112,21 @@
             productos.Add(producto);
         }
 
-        public void MostrarProductos() { 
-        
-        decimal total = 0;
+        public void MostrarProductos()
+        {
+
+            decimal total = 0;
             Console.WriteLine("Lista productos");
-            foreach (Producto producto in productos) {
-                Console.WriteLine(producto.MostrarDetalles());
+
+            foreach (Producto producto in productos)
+            {
+                producto.MostrarDetalles();
                 total += producto.CalcularPrecioFinal();
 
             }
 
-            
-        
+            Console.WriteLine($"\nTotal a pagar: {total:C}");
+
         }
 
 
@@ -134,7 +137,15 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
+            Factura factura = new Factura();
+            Producto libro1 = new Libro("C# Avanzado", 50.00m, "Programación", "LB001", 0.05m, "EduDev", 400);
+            Producto pc1 = new Computadora("Laptop", 1000.0m, "Laptops", "LA001", 0.18m, "HP Victus", "Intel i9", 32);
+
+            factura.AgregarProducto(libro1);
+            factura.AgregarProducto(pc1);
+
+            factura.MostrarProductos();
         }
     }
 }
